@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chattr</title>
+	<link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+	<div class="side">
+		<ul id="chatters"></ul>
+	</div>
+	<div class="content">
+		<div id="messages">
+			<div id="indicator"></div>
+		</div>
+		<form id="chat_form">
+			<input type="text" id="chat_input" placeholder="Message">
+			<input type="submit" value="Send">
+		</form>
+	</div>
+	<script id="message_template" type="text/template">
+		<div class="message">
+			<span class="name"><%= username %></span>
+			<span class="words"><%= words %></span>
+			<span class="time"><%= time %></span>
+		</div>
+	</script>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+<script type="text/javascript">
+(function() {
+
+	var socket = io.connect(window.location.hostname);
+
+	var $title = $('title'),
+		$chatters = $('#chatters'),
+		$status = $('#status'),
+		$messages = $('#messages'),
+		$chatInput = $('#chat_input').focus(),
+		$indicator = $('#indicator');
+
+	var username = prompt("Please enter your name:");
+	username = username ? username : "Someone";
+	socket.emit('join', username);
+
+	socket.on('changeUsername', function(newName) {
+		username = newName;
+	});
+
+	socket.on('restore', function(messages) {
+		$(messages).each(function(index, message) {
+			insertMessage(message);
+		});
+		$indicator.hide();
+	});
+
+	socket.on('send', function(message) {
+		insertMessage(message);
+		if (message.username == username) {
+			$title.html("Chattr");
+		} else {
+			$title.html("Chattr - " + message.username + " says...");
+		}
+	});
+
+	socket.on('updateStatus', function(status) {
+		var $status = $('<div>', {class: "status", html: status}).appendTo($messages);
+		scrollMessage();
+	});
+
+	socket.on('updateChatters', function(chatters) {
+		$chatters.empty();
+		chatters = chatters.sort();
+		$(chatters).each(function(index, chatter) {
+			$('<li>', {html: chatter}).appendTo($chatters);
+		});
+	});
+
+	$('#chat_form').on('submit', function(event) {
+		event.preventDefault();
+		var message = {
+			username: username,
+			words: $chatInput.val()
+		};
+		$chatInput.val("");
+		socket.emit('send', message);
+	});
+
+	var compileMessage = _.template( $('#message_template').html().trim() ),
+		unknown = { username: "Unknown", words: "", time: "" };
+
+	function insertMessage(message) {
+		message = $.extend({}, unknown, message);
+		$( compileMessage(message) ).appendTo($messages);
+		scrollMessage();
+	}
+
+	function scrollMessage() {
+		var height = $messages[0].scrollHeight;
+		$messages.scrollTop(height);
+	}
+
+})();
+</script>
+</html>

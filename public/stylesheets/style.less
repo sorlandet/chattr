@@ -1,0 +1,171 @@
+@border: 2px solid #A6A6A6;
+
+.border {
+	border: @border;
+}
+
+.box {
+	.box-sizing(border-box);
+}
+
+@body-height: 450px;
+
+body {
+	width: 800px;
+	height: @body-height;
+	margin: 50px auto 0 auto;
+	font-family: sans-serif;
+}
+
+@radius: 10px;
+
+.side {
+	.box;
+	float: left;
+	width: 20%;
+	height: 100%;
+	.border;
+	border-right: 0;
+	border-radius: @radius 0 0 @radius;
+	font-family: 'Lucida Grande';
+	background: #F7F7F7;
+
+	ul {
+		.box;
+		padding-left: 1.5em;
+	}
+
+	li {
+		list-style: none;
+		padding: 5px 0;
+	}
+}
+
+.content {
+	.box;
+	position: relative;
+	float: right;
+	width: 80%;
+	height: 100%;
+	.border;
+	border-radius: 0 @radius @radius 0;
+
+	@msg-margin: 25px;
+
+	#messages {
+		.box;
+		position: relative;
+		margin-top: @radius;
+		padding: 15px @msg-margin;
+		height: @body-height - @input-height - @radius * 2;
+		overflow-y: scroll;
+
+		div {
+			.box;
+			margin: 15px 0;
+			padding: 10px 15px;
+		}
+
+		@size: 32px;
+		#indicator {
+			background-image: url('../images/indicator.gif');
+			width: @size;
+			height: @size;
+			position: absolute;
+			z-index: 10;
+			top: 50%;
+			left: 45%;
+			margin-top: -@size / 2;
+			margin-left: -@size / 2;
+		}
+
+		.status {
+			font-family: 'Lucida Grande';
+		}
+
+		.message {
+			background: #F2F2F2;
+			position: relative;
+			border-radius: 5px;
+		}
+
+		.name {
+			display: block;
+			min-height: 18px;
+			font-weight: bold;
+			font-family: 'Lucida Grande';
+			margin-bottom: 5px;
+		}
+
+		.words {
+			display: block;
+			min-height: 18px;
+			color: gray;
+		}
+
+		.time {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			font: 10px normal 'Lucida Grande';
+			color: gray;
+		}
+	}
+}
+
+@input-height: 35px;
+
+#chat_form {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: @input-height;
+	border-top: @border;
+	border-radius: 0 0 @radius 0;
+
+	#chat_input {
+		.box;
+		height: 100%;
+		width: 85%;
+		border: 0;
+		padding-left: 10px;
+		font-size: 18px;
+	}
+
+	#chat_input:focus {
+		outline: none;
+	}
+
+	input[type="submit"] {
+		.box;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 15%;
+		height: 100%;
+		border: 0;
+		border-radius: 0 0 @radius - 3px 0;
+		margin: 0;
+		font-size: 14px;
+	}
+
+	input[type="submit"]:active {
+		color: white;
+		background: gray;
+	}
+}
+
+// CSS prefixes
+.box-sizing( @type : border-box ) {
+	-webkit-box-sizing: @type;
+	   -moz-box-sizing: @type;
+	    -ms-box-sizing: @type;
+	        box-sizing: @type;
+}
+
+.box-shadow( @params : 2px 2px 5px 0 rgba(0,0,0,.5) ) {
+	-webkit-box-shadow: @params;
+	   -moz-box-shadow: @params;
+	        box-shadow: @params;
+}
