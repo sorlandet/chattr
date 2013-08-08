@@ -1,0 +1,16 @@
+.border{border:2px solid #a6a6a6}
+.box{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
+body{width:800px;height:450px;margin:50px auto 0 auto;font-family:sans-serif}
+.side{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;float:left;width:20%;height:100%;border:2px solid #a6a6a6;border-right:0;border-radius:10px 0 0 10px;font-family:'Lucida Grande';background:#F7F7F7}.side ul{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;padding-left:1.5em}
+.side li{list-style:none;padding:5px 0}
+.content{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;position:relative;float:right;width:80%;height:100%;border:2px solid #a6a6a6;border-radius:0 10px 10px 0}.content #messages{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;position:relative;margin-top:10px;padding:15px 25px;height:395px;overflow-y:scroll}.content #messages div{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;margin:15px 0;padding:10px 15px}
+.content #messages #indicator{background-image:url('../images/indicator.gif');width:32px;height:32px;position:absolute;z-index:10;top:50%;left:45%;margin-top:-16px;margin-left:-16px}
+.content #messages .status{font-family:'Lucida Grande'}
+.content #messages .message{background:#F2F2F2;position:relative;border-radius:5px}
+.content #messages .name{display:block;min-height:18px;font-weight:bold;font-family:'Lucida Grande';margin-bottom:5px}
+.content #messages .words{display:block;min-height:18px;color:gray}
+.content #messages .time{position:absolute;top:15px;right:15px;font:10px normal 'Lucida Grande';color:gray}
+#chat_form{position:absolute;right:0;bottom:0;width:100%;height:35px;border-top:2px solid #a6a6a6;border-radius:0 0 10px 0}#chat_form #chat_input{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;height:100%;width:85%;border:0;padding-left:10px;font-size:18px}
+#chat_form #chat_input:focus{outline:none}
+#chat_form input[type="submit"]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;position:absolute;right:0;bottom:0;width:15%;height:100%;border:0;border-radius:0 0 7px 0;margin:0;font-size:14px}
+#chat_form input[type="submit"]:active{color:white;background:gray}

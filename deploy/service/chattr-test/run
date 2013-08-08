@@ -1,0 +1,8 @@
+#!/bin/sh
+
+LOGPATH=/var/log/chattr-test/node
+SOURCEPATH=/opt/www/private/chattr
+
+cd $SOURCEPATH
+
+exec chpst -u wwwpub node $SOURCEPATH/app.js 1>>$LOGPATH/output.log 2>>$LOGPATH/error.log
